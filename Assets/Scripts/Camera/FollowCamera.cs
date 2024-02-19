@@ -4,17 +4,17 @@ using UnityEngine;
 
 public class FollowCamera : MonoBehaviour
 {
-    [SerializeField] private Transform target;
-    [SerializeField] private Vector3 camOffset;
-    [SerializeField] private float smoothDelta = 5.0f;
-    private Vector3 velocity = Vector2.zero;
+    [SerializeField] private Transform _target;
+    [SerializeField] private Vector3 _camOffset;
+    [SerializeField] private float _smoothDelta = 5.0f;
+    private Vector3 _velocity = Vector2.zero;
 
     
     void FixedUpdate()
     {
-        if (target == null) return;
+        if (_target == null) return;
 
-        Vector3 targetPosition = target.position + camOffset;
-        transform.position = Vector3.Lerp(transform.position, targetPosition, smoothDelta * Time.deltaTime);
+        Vector3 targetPosition = _target.position + _camOffset;
+        transform.position = Vector3.Lerp(transform.position, targetPosition, _smoothDelta * Time.deltaTime);
     }
 }

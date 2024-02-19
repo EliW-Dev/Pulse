@@ -7,16 +7,11 @@ public class PlayerInput : MonoBehaviour
 {
     public static event Action OnPlayerJump;
 
-    private float horizontalInputValue = 0.0f;
+    private float _horizontalInputValue = 0.0f;
 
     public float HorizontalInputVaue
     {
-        get => horizontalInputValue;
-    }
-
-    void Start()
-    {
-
+        get => _horizontalInputValue;
     }
 
     void Update()
@@ -26,7 +21,7 @@ public class PlayerInput : MonoBehaviour
 
     private void ProcessInputs()
     {
-        horizontalInputValue = Input.GetAxis("Horizontal");
+        _horizontalInputValue = Input.GetAxis("Horizontal");
 
         if(Input.GetButtonDown("Jump"))
         {
