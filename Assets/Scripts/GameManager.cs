@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private int _playerMaxShieldLevel = 10;
     //the player's starting shield strength for the current level - increment through game-play, not reset on death. 
-    private int _playerShieldLevelRef = 0; //TODO - read/write to json on death/respawn.
+    private int _playerShieldLevelRef = 1; //TODO - read/write to json on death/respawn.
 
     private void Awake()
     {

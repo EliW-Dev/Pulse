@@ -12,7 +12,7 @@ public enum ECollectableType
 public class Collectables : MonoBehaviour, ICollectable
 {
     [SerializeField] private ECollectableType _collectableType;
-    [SerializeField] private int _collectbleValue = 1;
+    [SerializeField] private int _collectableValue = 1;
 
     public void ItemCollected(Player collectingPlayer)
     {
@@ -21,10 +21,10 @@ public class Collectables : MonoBehaviour, ICollectable
         switch(_collectableType)
         {
             case ECollectableType.Shield:
-                collectingPlayer.UpdateShieldLevel(_collectbleValue);
+                collectingPlayer.UpdateShieldLevel(_collectableValue);
                 break;
             case ECollectableType.Coin:
-                collectingPlayer.UpdatePlayerCoins(_collectbleValue);
+                collectingPlayer.UpdatePlayerCoins(_collectableValue);
                 break;
             default:
                 break;

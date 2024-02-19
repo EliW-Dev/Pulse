@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, IDamageable
 {
     [SerializeField] private float _maxPlayerHealth;
     private float _playerHealth;
@@ -49,5 +49,18 @@ public class Player : MonoBehaviour
     {
         _playerCoins += value;
         Debug.Log(string.Format("Coins collected! {0}", _playerCoins));
+    }
+
+    public void TakeDamage(int damageValue)
+    {
+        _shieldStrength -= damageValue;
+
+        if(_shieldStrength <= 0 )
+        {
+            Debug.Log(string.Format("Player is DEAD! shield strength: {0}", _shieldStrength));
+            Destroy(gameObject, 0.5f);
+        }
+
+        Debug.Log(string.Format("OUCH! my shield is now {0}", _shieldStrength));
     }
 }

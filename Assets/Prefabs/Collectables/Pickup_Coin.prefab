@@ -40,17 +40,21 @@ PrefabInstance:
       propertyPath: _collectbleValue
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 3046593208976789592, guid: a2e5e0a0e21f36343a33782e8d715309, type: 3}
+      propertyPath: _collectableValue
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 3764924481072291781, guid: a2e5e0a0e21f36343a33782e8d715309, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.48
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3764924481072291781, guid: a2e5e0a0e21f36343a33782e8d715309, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.339
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3764924481072291781, guid: a2e5e0a0e21f36343a33782e8d715309, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.078044556
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3764924481072291781, guid: a2e5e0a0e21f36343a33782e8d715309, type: 3}
       propertyPath: m_LocalRotation.w
