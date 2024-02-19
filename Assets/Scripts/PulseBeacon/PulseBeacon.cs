@@ -16,6 +16,13 @@ public class PulseBeacon : MonoBehaviour
     {
         _beaconActive = true;
         _timeSinceLastPulse = 0.0f;
+
+        PulseBeaconPowerModule.OnBeaconPowerToggle += ToggleBeaconActive;
+    }
+
+    private void OnDestroy()
+    {
+        PulseBeaconPowerModule.OnBeaconPowerToggle -= ToggleBeaconActive;
     }
 
     // Update is called once per frame
@@ -37,5 +44,11 @@ public class PulseBeacon : MonoBehaviour
 
         GameObject pulse = (GameObject)Instantiate(_pulsePrefab);
         pulse.transform.position = _pulseSpawnPoint.position;
+    }
+
+    private void ToggleBeaconActive()
+    {
+        _beaconActive = !_beaconActive;
+        _timeSinceLastPulse = 0.0f;
     }
 }
