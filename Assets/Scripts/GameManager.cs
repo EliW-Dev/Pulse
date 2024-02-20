@@ -8,8 +8,13 @@ public class GameManager : MonoBehaviour
     public static GameManager current;
 
     [SerializeField] private int _playerMaxShieldLevel = 10;
+    [SerializeField] private float _pulseBeaconpulseDelay = 3.0f;
+
     //the player's starting shield strength for the current level - increment through game-play, not reset on death. 
     private int _playerShieldLevelRef = 1; //TODO - read/write to json on death/respawn.
+
+    private PulseBeacon _pulseBeacon;
+
 
     private void Awake()
     {
@@ -23,6 +28,24 @@ public class GameManager : MonoBehaviour
         current = this;
 
         DontDestroyOnLoad(gameObject);
+    }
+
+    private void Start()
+    {
+        if(_pulseBeacon == null)
+        {
+            _pulseBeacon = GameObject.FindGameObjectWithTag("PulseBeacon").GetComponent<PulseBeacon>();
+        }
+    }
+
+    void SetupLevel()
+    {
+        _pulseBeacon.SetBeaconState(false);
+    }
+
+    void StartGameRound()
+    {
+        _pulseBeacon.SetBeaconState(true, _pulseBeaconpulseDelay);
     }
 
     public int IncrementPlayerShieldLevel(int addValue)

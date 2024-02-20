@@ -6,16 +6,15 @@ public class PulseBeacon : MonoBehaviour
 {
     [SerializeField] GameObject _pulsePrefab;
     [SerializeField] private Transform _pulseSpawnPoint;
-    [SerializeField] private float _pulseDelay = 0.0f;
+
+    private float _pulseDelay = 0.0f;
     private float _timeSinceLastPulse = 0.0f;
 
-    private bool _beaconActive = true;
+    private bool _beaconActive = false;
 
-    // Start is called before the first frame update
     void Start()
     {
-        _beaconActive = true;
-        _timeSinceLastPulse = 0.0f;
+        _beaconActive = false;
 
         PulseBeaconPowerModule.OnBeaconPowerToggle += ToggleBeaconActive;
     }
@@ -25,7 +24,6 @@ public class PulseBeacon : MonoBehaviour
         PulseBeaconPowerModule.OnBeaconPowerToggle -= ToggleBeaconActive;
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (!_beaconActive) return;
@@ -38,17 +36,25 @@ public class PulseBeacon : MonoBehaviour
         }
     }
 
+    public void SetBeaconState(bool beaconActive, float pulseDelay = 0.0f)
+    {
+        _beaconActive = beaconActive;
+        _pulseDelay = pulseDelay;
+        _timeSinceLastPulse = 0.0f;
+    }
+
     private void SpawnPulse()
     {
         if (_pulsePrefab == null) return;
 
+        //I would normally use a Object Pool for something like this, but we have 1 pulse every few seconds, so this is fine.
         GameObject pulse = (GameObject)Instantiate(_pulsePrefab);
         pulse.transform.position = _pulseSpawnPoint.position;
     }
 
-    private void ToggleBeaconActive()
+    private void ToggleBeaconActive(bool isActive)
     {
-        _beaconActive = !_beaconActive;
+        _beaconActive = isActive;
         _timeSinceLastPulse = 0.0f;
     }
 }
