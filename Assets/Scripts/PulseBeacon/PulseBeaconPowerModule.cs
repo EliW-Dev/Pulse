@@ -13,8 +13,17 @@ public class PulseBeaconPowerModule : MonoBehaviour
 
     [Header("Instructions Text")]
     [SerializeField] private string _deactivateMessage = "[ E ]\nDisable Beacon";
+    [SerializeField] private string _disabledMessage = "Beacon\nDisabled!";
+
+    [Header("Button Emissive")]
+    [SerializeField] private float _minButtonEmissiveIntencity = 1.5f;
+    [SerializeField] private float _maxButtonEmissiveIntencity = 5.5f;
+    [SerializeField] private float _emissivePulseTime = 3.0f;
 
     private bool _playerInRange = false;
+    private bool _isActive = false;
+    private Material _material;
+    private int _materialEmissiveProperty;
 
     private void Start()
     {
@@ -29,10 +38,25 @@ public class PulseBeaconPowerModule : MonoBehaviour
 
         _instructionPopup.SetActive(false);
         _playerInRange = false;
+        _isActive = true;
+
+        //material setup
+        SpriteRenderer renderer = GetComponentInChildren<SpriteRenderer>();
+        if (renderer != null)
+        {
+            _material = renderer.material;
+            _materialEmissiveProperty = Shader.PropertyToID("_Intencity");
+        }
+
+        _material.SetFloat(_materialEmissiveProperty, _minButtonEmissiveIntencity);
     }
 
     void Update()
     {
+        if (!_isActive) return;
+
+        UpdateEmissiveMaterial();
+        
         if (!_playerInRange) return;
 
         ProcessInput();
@@ -43,6 +67,10 @@ public class PulseBeaconPowerModule : MonoBehaviour
         if (Input.GetButtonDown("Interact"))
         {
             OnBeaconPowerToggle?.Invoke(false);
+
+            _instructionPopup.SetActive(false);
+            _isActive = false;
+            UpdateEmissiveMaterial(false); //disable the button emissive "pulse"
         }
     }
 
@@ -50,7 +78,7 @@ public class PulseBeaconPowerModule : MonoBehaviour
     {
         _playerInRange = true;
         _instructionPopup.SetActive(true);
-        SetPopupText(_deactivateMessage);
+        SetPopupText(_isActive ? _deactivateMessage : _disabledMessage);
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -65,5 +93,15 @@ public class PulseBeaconPowerModule : MonoBehaviour
         if(_instructionText == null) { return; }
 
         _instructionText.text = message;
+    }
+
+    //Update the Emissive Material on this GO.
+    private void UpdateEmissiveMaterial(bool isActive = true)
+    {
+        //letting the shader handle this would probably be better - have a bool to enable/disable the emissive "pulse"
+        float step = Mathf.Sin(Time.time * _emissivePulseTime);
+        float emissiveValue = isActive ? Mathf.Lerp(_minButtonEmissiveIntencity, _maxButtonEmissiveIntencity, step) : _minButtonEmissiveIntencity / 2.0f;
+
+        _material.SetFloat(_materialEmissiveProperty, emissiveValue);
     }
 }

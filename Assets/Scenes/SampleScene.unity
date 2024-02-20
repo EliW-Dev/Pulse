@@ -149,7 +149,7 @@ Transform:
   m_GameObject: {fileID: 4974954}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.23, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -175,7 +175,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: fff05073b621c194491331afa9308c49, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -196,12 +196,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -1
-  m_Sprite: {fileID: 410313448, guid: c24d9cd04001c3f4095dab1e463a30ce, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c24d9cd04001c3f4095dab1e463a30ce, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 4.04, y: 3.14}
+  m_Size: {x: 5.12, y: 5.12}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -237,6 +237,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerMaxShieldLevel: 10
+  _pulseBeaconpulseDelay: 3
 --- !u!4 &47444323
 Transform:
   m_ObjectHideFlags: 0
@@ -466,6 +467,55 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &312244676
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 312244678}
+  - component: {fileID: 312244677}
+  m_Layer: 0
+  m_Name: Global Volume
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &312244677
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 312244676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IsGlobal: 1
+  priority: 0
+  blendDistance: 0
+  weight: 1
+  sharedProfile: {fileID: 11400000, guid: 498637e8963627844a4d9902651edf43, type: 2}
+--- !u!4 &312244678
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 312244676}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.4231668, y: -0.96967, z: -0.13751549}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &498981464
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -877,7 +927,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _pulsePrefab: {fileID: 1591960429110549898, guid: 59ed393b86b1989428d0118a46873946, type: 3}
   _pulseSpawnPoint: {fileID: 213544643}
-  _pulseDelay: 2
 --- !u!4 &1102514791
 Transform:
   m_ObjectHideFlags: 0
@@ -2224,9 +2273,12 @@ MonoBehaviour:
   _deactivateMessage: '[ E ]
 
     Disable Beacon'
-  _activateMessage: '[ E ]
+  _disabledMessage: 'Beacon
 
-    Enable Beacon'
+    Disabled!'
+  _minButtonEmissiveIntencity: 1.5
+  _maxButtonEmissiveIntencity: 5.5
+  _emissivePulseTime: 3
 --- !u!1 &1560836363
 GameObject:
   m_ObjectHideFlags: 0
@@ -2846,3 +2898,4 @@ SceneRoots:
   - {fileID: 1102514791}
   - {fileID: 1396520958}
   - {fileID: 1392263769}
+  - {fileID: 312244678}
