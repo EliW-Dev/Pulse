@@ -14,3 +14,18 @@ You have a personal shield that should protect you from a few hits of the 'Pulse
 - Right: [ W ] Key
 - Jump: [ Space Bar ]
 - Interact: [ E ] Key
+
+
+### Missing Elements / TODOs
+
+- Game data save/load - json
+- UI
+    - Screen fade
+    - Information Popup (round start/game info)
+    - UI "beautification"
+- Game End handling (nothing currently happens once the game is won)
+- ART!
+    - Player character
+    - Environment
+    - Pickups
+    - UI elements
