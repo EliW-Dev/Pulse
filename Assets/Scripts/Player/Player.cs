@@ -50,7 +50,7 @@ public class Player : MonoBehaviour, IDamageable
             this.Invoke("PlayerDied", 0.5f);
         }
 
-        Debug.Log(string.Format("OUCH! my shield is now {0}", _shieldStrength));
+        //Debug.Log(string.Format("OUCH! my shield is now {0}", _shieldStrength));
     }
 
     private void PlayerDied()
