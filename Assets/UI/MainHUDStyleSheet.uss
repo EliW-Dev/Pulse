@@ -1,0 +1,29 @@
+.unity-progress-bar__progress {
+
+}
+
+.unity-progress-bar__background {
+    background-color: rgba(180, 180, 180, 0.2);
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+}
+
+.max-shield-value-bar .unity-progress-bar__progress {
+    background-color: rgb(231, 231, 0);
+}
+
+.current-shield-value-bar .unity-progress-bar__progress {
+    background-color: rgb(70, 165, 100);
+}
+
+.unity-progress-bar__container {
+    width: 300px;
+    min-height: 10px;
+    height: 15px;
+}
+
+.unity-progress-bar__title-container {
+
+}

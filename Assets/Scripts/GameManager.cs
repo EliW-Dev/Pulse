@@ -21,7 +21,8 @@ public class GameManager : MonoBehaviour
 
     public static event Action<EGameState> OnGameStateChanged;
 
-    [SerializeField] private int _playerMaxShieldLevel = 3;
+    [SerializeField] private int _maxShieldLevel = 0;
+    [SerializeField] private int _playerStartingShieldLevel = 0;
     [SerializeField] private float _pulseBeaconPulseDelay = 3.0f;
 
     [Header("Player")]
@@ -97,6 +98,9 @@ public class GameManager : MonoBehaviour
         _pulseBeacon.SetBeaconState(false);
         _player.gameObject.SetActive(false);
         _gameStartCountdown = 0.0f;
+        _playerShieldLevelRef = _playerStartingShieldLevel;
+        UIManager.current.UpdateMaxShieldBar(_playerStartingShieldLevel);
+        UIManager.current.UpdateCurrentShieldBar(0);
         SetGameState(EGameState.GameStartCountdown);
     }
 
@@ -106,7 +110,9 @@ public class GameManager : MonoBehaviour
         _player.transform.position = _playerStart.position;
         _player.gameObject.SetActive(true);
         _player.SetupPlayer(_playerShieldLevelRef);
-        Debug.Log(string.Format("Set Player Shield Level! {0}", _playerShieldLevelRef));
+        UIManager.current.UpdateCurrentShieldBar(_playerShieldLevelRef);
+
+        //Debug.Log(string.Format("Set Player Shield Level! {0}", _playerShieldLevelRef));
     }
 
     void StartGameRound()
@@ -132,13 +138,27 @@ public class GameManager : MonoBehaviour
 
     public int IncrementPlayerShieldLevel(int addValue)
     {
+        if (_playerShieldLevelRef >= _maxShieldLevel) { return _playerShieldLevelRef; }
+
         _playerShieldLevelRef += addValue;
 
-        _playerShieldLevelRef = Mathf.Min(_playerMaxShieldLevel, _playerShieldLevelRef);
+        //_playerShieldLevelRef = Mathf.Min(_playerStartingShieldLevel, _playerShieldLevelRef);
+        _playerShieldLevelRef = Mathf.Clamp(_playerShieldLevelRef, 0, _maxShieldLevel);
+
+        _playerStartingShieldLevel = Mathf.Min(_playerStartingShieldLevel += addValue, _maxShieldLevel);
+
+        UIManager.current.UpdateCurrentShieldBar(_playerShieldLevelRef);
+        UIManager.current.UpdateMaxShieldBar(_playerStartingShieldLevel);
 
         //TODO - save data
 
         return _playerShieldLevelRef;
+    }
+
+    public void PlayerShieldHit(int shieldValue)
+    {
+        _playerShieldLevelRef = shieldValue;
+        UIManager.current.UpdateCurrentShieldBar(_playerShieldLevelRef);
     }
 
     //using this instead of a Property to allow for saved data check 
