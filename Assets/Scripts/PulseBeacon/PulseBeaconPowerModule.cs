@@ -71,6 +71,8 @@ public class PulseBeaconPowerModule : MonoBehaviour
             _instructionPopup.SetActive(false);
             _isActive = false;
             UpdateEmissiveMaterial(false); //disable the button emissive "pulse"
+
+            GameManager.current.GameWon();
         }
     }
 

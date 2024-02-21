@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4355085429560005088}
   - component: {fileID: 8277125313718409667}
-  - component: {fileID: 1302205457380943898}
+  - component: {fileID: 7098603348644046520}
   m_Layer: 9
   m_Name: Pulse
   m_TagString: Untagged
@@ -46,9 +46,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6ebae32f1b952941a72eb07d162c155, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pulseMoveSpeed: 3
-  _pulseLifeTime: 4
---- !u!58 &1302205457380943898
+  _pulseMoveSpeed: 4
+  _pulseLifeTime: 8
+--- !u!58 &7098603348644046520
 CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

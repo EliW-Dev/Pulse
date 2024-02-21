@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class Player : MonoBehaviour, IDamageable
 {
-    [SerializeField] private float _maxPlayerHealth;
-    private float _playerHealth;
     private int _shieldStrength = 0;
     private int _playerCoins = 0;
+
+    //no player health - shieldStrength = health,  
 
     void Start()
     {
@@ -19,9 +19,10 @@ public class Player : MonoBehaviour, IDamageable
         
     }
 
-    private void SetupPlayer()
+    public void SetupPlayer(int shieldLevel)
     {
-        _shieldStrength = GameManager.current.GetPlayerShieldLevel();
+        _shieldStrength = shieldLevel;
+        //Debug.Log(string.Format("Shield set! {0}", _shieldStrength));
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -40,7 +41,7 @@ public class Player : MonoBehaviour, IDamageable
     {
         //TODO - not sure if we should increment player shield immediately or on next respawn. 
         _shieldStrength = GameManager.current.IncrementPlayerShieldLevel(value);
-        Debug.Log(string.Format("Shield Updated! {0}", _shieldStrength));
+        //Debug.Log(string.Format("Shield Updated! {0}", _shieldStrength));
     }
 
     public void UpdatePlayerCoins(int value)
@@ -51,14 +52,22 @@ public class Player : MonoBehaviour, IDamageable
 
     public void TakeDamage(int damageValue)
     {
+        if (GameManager.current.GameState != EGameState.GameActive) return;
+
         _shieldStrength -= damageValue;
 
-        if(_shieldStrength <= 0 )
+        if(_shieldStrength < 0 )
         {
-            Debug.Log(string.Format("Player is DEAD! shield strength: {0}", _shieldStrength));
-            Destroy(gameObject, 0.5f);
+            //Debug.Log(string.Format("Player is DEAD! shield strength: {0}", _shieldStrength));
+            this.Invoke("PlayerDied", 0.5f);
         }
 
         Debug.Log(string.Format("OUCH! my shield is now {0}", _shieldStrength));
+    }
+
+    private void PlayerDied()
+    {
+        gameObject.SetActive(false);
+        GameManager.current.PlayerDied();
     }
 }

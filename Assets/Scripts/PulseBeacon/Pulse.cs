@@ -12,8 +12,15 @@ public class Pulse : MonoBehaviour
     {
         _circleCollider = GetComponent<CircleCollider2D>();
 
+        GameManager.OnGameStateChanged += GameStateChanged;
+
         //a little lazy maybe - just need to auto destroy the pulse.
         Destroy(gameObject, _pulseLifeTime);
+    }
+
+    private void OnDisable()
+    {
+        GameManager.OnGameStateChanged -= GameStateChanged;
     }
 
     void Update()
@@ -31,5 +38,15 @@ public class Pulse : MonoBehaviour
         {
             damageable.TakeDamage(1);
         }
+    }
+
+    private void GameStateChanged(EGameState gameState)
+    {
+        this.Invoke("DisablePulse", 0.75f);
+    }
+
+    private void DisablePulse()
+    {
+        gameObject.SetActive(false);
     }
 }
